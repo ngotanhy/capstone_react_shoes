@@ -26,7 +26,7 @@ import './assets/scss/style.scss';
 import Search from './pages/Search/Search';
 
 //Cấu hình react router dom
-const history = createBrowserHistory({ window });
+export const history = createBrowserHistory({ window });
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

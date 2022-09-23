@@ -3,6 +3,8 @@ module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    './src/**/*.{html,js}',
+    './node_modules/tw-elements/dist/js/**/*.js'
   ],
   theme: {
     screens: {
@@ -30,11 +32,15 @@ module.exports = {
       height: {
         '300': '300px',
         '100vh':'100vh',
+        '400':'400px',
       },
       fontFamily: {
         sans:['Roboto','sans-serif'],
       },
+      fontSize:{
+        '40px':'40px',
+      },
     }
   },
-  plugins: [],
+  plugins: [require('tw-elements/dist/plugin')],
 }

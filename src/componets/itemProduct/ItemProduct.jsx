@@ -1,15 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import urlProduct from '../../assets/img/shoes.png'
+// import urlProduct from '../../assets/img/shoes.png'
 
-export default function ItemProduct() {
+export default function ItemProduct({product}) {
+    // console.log(product)
     const navigate = useNavigate();
     return (
         <>
             <div className="w-334 itemProduct bg-slate-100 overflow-hidden">
                 <div className="relative">
                     <img
-                        src={urlProduct}
+                        src={product?.image}
                         alt="..."
                         className="object-cover px-14 py-10 " />
                     <div className='text-red-500 hover:text-red-900 cursor-pointer '>
@@ -30,17 +31,17 @@ export default function ItemProduct() {
                     </div>
                 </div>
                 <div className="overflow-hidden">
-                    <div className="pl-6 mb-2">
-                        <p className="font-semibold text-2xl">Name</p>
-                        <p className="text-xl text-slate-400 truncate ... overflow-hidden">Description</p>
+                    <div className="px-6 mb-2 h-24">
+                        <p className="font-semibold text-2xl h-16">{product?.name}</p>
+                        <p className="text-xl text-slate-400 truncate ... overflow-hidden">{product?.shortDescription}</p>
                     </div>
                     <div className="flex sm:justify-start">
                         <button className="basis-1/2 text-black bg-orange-500 font-normal text-2xl py-2 hover:bg-orange-700"
-                            onClick={() => { navigate(`/detail/4`), window.scrollTo(0, 0); }}
+                            onClick={() => { navigate(`/detail/${product?.id}`), window.scrollTo(0, 0); }}
                         >
                             Buy Now
                         </button>
-                        <p className="basis-1/2 p-2 font-normal text-2xl text-center">86$</p>
+                        <p className="basis-1/2 p-2 font-normal text-2xl text-center">{product?.price}$</p>
                     </div>
                 </div>
             </div>

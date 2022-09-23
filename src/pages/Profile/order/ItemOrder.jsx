@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ItemOrder() {
+export default function ItemOrder({ order }) {
     return (
         <div className="mb-40 mt-4 ">
             <p className='font-normal text-xl text-purple-900'>+ Orders have been placed on 09 - 19 - 2020</p>
@@ -17,12 +17,12 @@ export default function ItemOrder() {
                 </thead>
                 <tbody>
                     <tr >
-                        <td className='py-2 pl-2'>id</td>
-                        <td className='py-2 pl-2'>adsdfdsfada</td>
-                        <td className='py-2 pl-2'>name</td>
-                        <td className='py-2 pl-2'>price</td>
-                        <td className='py-2 pl-2'>quantity</td>
-                        <td className='py-2 pl-2'>total$</td>
+                        <td className='py-2 pl-2'>{order?.id}</td>
+                        <td className='py-2 pl-2'>{order?.image}</td>
+                        <td className='py-2 pl-2'>{order?.name}</td>
+                        <td className='py-2 pl-2'>{order?.price}</td>
+                        <td className='py-2 pl-2'>{order?.quantity}</td>
+                        <td className='py-2 pl-2'>{order?.price * order?.quantity}$</td>
                     </tr>
                 </tbody>
             </table>

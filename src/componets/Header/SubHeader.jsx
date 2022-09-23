@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import urlImgLogo from '../../assets/img/logo.png'
+import { history } from '../../main';
 
 export default function subHeader() {
+    const { userLogin } = useSelector(state => state.userReducer);
+
+    useEffect(() => {
+        if (userLogin == null) { history.push('/login')}
+    }, [userLogin])
+
     return (
         <nav className="px-6 flex justify-items-center bg-black">
             <NavLink to="/home" className="basis-3/12 rounded-lg test h-full pt-1">
@@ -36,7 +44,11 @@ export default function subHeader() {
                     </svg>
                     <span>(1)</span>
                 </NavLink>
-                <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">login</NavLink>
+                {userLogin !== null ?
+                    <NavLink to='/profile' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Profile</NavLink>
+                    :
+                    <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Login</NavLink>
+                }
                 <NavLink to='/register' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">register</NavLink>
             </div>
         </nav>
