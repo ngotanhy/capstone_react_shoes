@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { Profiler } from 'react'
 import ReactDOM from 'react-dom/client'
-import './assets/scss/style.scss'
 import { BrowserRouter, Navigate, Route, RouterProvider, Routes } from 'react-router-dom'
 
 
@@ -22,6 +21,10 @@ import Profile from './pages/Profile/Profile'
 import Cart from './pages/Cart/Cart'
 // import { router } from './route/arrRoute'
 
+//scss
+import './assets/scss/style.scss';
+import Search from './pages/Search/Search';
+
 //Cấu hình react router dom
 const history = createBrowserHistory({ window });
 
@@ -37,9 +40,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='search' element={<Search />} />
+          <Route path='profile' element={<Profile />} />
 
-          <Route path='detailProduct'>
-            <Route path=':idProduct' element={<DetailProduct />} />
+
+          <Route path='detail'>
+            <Route path=':id' element={<DetailProduct />} />
           </Route>
 
           <Route path='cart' element={<Cart />} />
