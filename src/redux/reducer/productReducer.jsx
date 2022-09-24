@@ -3,7 +3,8 @@ import { http } from '../../util/config';
 
 const initialState = {
     arrProducts: [],
-    product: [],
+    productById: [],
+    arrProductsOrder: []
 }
 
 const productReducer = createSlice({
@@ -14,14 +15,24 @@ const productReducer = createSlice({
             state.arrProducts = payload;
         },
         setProductByID: (state, { payload }) => {
-            state.product = payload;
+            state.productById = payload;
+        },
+        pushProductOrders: (state, { payload }) => {
+            state.arrProductsOrder = payload;
+        },
+        deleteProductOrder: (state, { payload }) => {
+            let newArrProductsOrder = [...state.arrProductsOrder].filter(item => item !== null);
+            let orderFilter = newArrProductsOrder.filter(item => item.id !== payload.id && item.size !== payload.size)
+            state.arrProductsOrder = orderFilter;
         }
     }
 });
 
-export const { setArrProduct, setProductByID } = productReducer.actions
+export const { setArrProduct, setProductByID, pushProductOrders, deleteProductOrder } = productReducer.actions
 
 export default productReducer.reducer
+
+
 
 
 // -----   action thunk (api)--------------------------------
@@ -51,3 +62,29 @@ export const getProductId = (id) => {
         }
     }
 }
+
+
+// export const checkSimilarProductInList = (arrProducts, productOrder) => {
+//     console.log(arrProducts, productOrder);
+//     let newArrProduct = [...arrProducts];
+//     newArrProduct.push(productOrder);
+//     if (newArrProduct.length > 0) {
+//         return dispatch => {
+//             for (let i = 0; i < newArrProduct.length; i++) {
+//                 let count = 0;
+//                 let obj1 = newArrProduct[i];
+//                 count = obj1?.quantity;
+//                 for (let j = newArrProduct.length - 1; j >= i + 1; j--) {
+//                     let obj2 = newArrProduct[j];
+//                     if (obj1.size === obj2.size && obj1.id === obj2.id) {
+//                         count += obj2?.quantity;
+//                         newArrProduct.splice(j, 1);
+//                     }
+//                 }
+//                 newArrProduct[i]?.quantity = count
+//             }
+//             let action = pushProductOrders(newArrProduct);
+//             dispatch(action)
+//         }
+//     }
+// }

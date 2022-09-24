@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import urlImgLogo from '../../assets/img/logo.png'
 import { history } from '../../main';
 
 export default function subHeader() {
+    const [count, setCount] = useState(0);
     const { userLogin } = useSelector(state => state.userReducer);
+    const { arrProductsOrder } = useSelector(state => state.productReducer);
 
     useEffect(() => {
-        if (userLogin == null) { history.push('/login')}
-    }, [userLogin])
+        if (userLogin == null) { history.push('/login') }
+        if (arrProductsOrder !== null) {
+            setCount(arrProductsOrder.length)
+        }
+    }, [userLogin, arrProductsOrder])
 
     return (
         <nav className="px-6 flex justify-items-center bg-black">
@@ -42,7 +47,7 @@ export default function subHeader() {
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
                         </path>
                     </svg>
-                    <span>(1)</span>
+                    <span>({count})</span>
                 </NavLink>
                 {userLogin !== null ?
                     <NavLink to='/profile' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Profile</NavLink>

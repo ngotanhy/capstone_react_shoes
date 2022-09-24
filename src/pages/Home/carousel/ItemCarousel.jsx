@@ -6,7 +6,7 @@ export default function ItemCarousel({product}) {
     return (
         <div className="flex mt-11">
             <div className="basis-6/12 flex justify-center">
-                <img src={product?.image} className="block w-575 h-400" alt="..." />
+                <img src={product?.image} className="block w-443 h-400" alt="..." />
             </div>
             <div className="basis-6/12 pt-24">
                 <p className="font-light text-40px">{product?.name}</p>

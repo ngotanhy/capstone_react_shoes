@@ -7,27 +7,26 @@ import DetailItemProduct from './DetailItemProduct'
 
 export default function DetailProduct() {
   const { id } = useParams();
-  const { product}= useSelector(state=>state.productReducer);
-  const dispatch= useDispatch();
-  // const arrProducts
-  // const[activeSize,setActiveSize] = useState();
+  const { productById } = useSelector(state => state.productReducer);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-      const action=getProductId(id);
-      dispatch(action)
+    const action = getProductId(id);
+    dispatch(action)
   }, [id])
 
   return (
     <>
       <div className="container">
-        <DetailItemProduct product={product} />
+        <DetailItemProduct product={productById} />
       </div>
       <div className="bg-purple-100">
         <div className="container">
           <h2 className="text-center font-normal text-4xl pt-7">-Realate Product -</h2>
           <div className="flex gap-14 flex-wrap justify-around mt-10 ml-32 pb-28">
-            {product?.relatedProducts?.map((item)=>{
-                  return <ItemProduct key={item.id} product={item}/>
+            {productById?.relatedProducts?.map((item) => {
+              return <ItemProduct key={item.id} product={item} />
             })}
           </div>
         </div>

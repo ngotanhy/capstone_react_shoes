@@ -1,4 +1,4 @@
-import React, { Profiler } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, RouterProvider, Routes } from 'react-router-dom'
 
