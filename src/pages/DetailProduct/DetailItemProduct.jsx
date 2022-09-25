@@ -30,14 +30,16 @@ export default function DetailItemProduct({ product }) {
                 quantity: quantity,
                 image: product.image
             }
-            console.log(productAddToCart)
+
             let newArrProductsOrder = [...arrProductsOrder];
-            console.log(newArrProductsOrder);
-            if (newArrProductsOrder.length > 1) {
+
+            if (newArrProductsOrder.length > 0) {
                 let index = newArrProductsOrder.findIndex(item => item.id === productAddToCart.id && item.size === productAddToCart.size);
-                console.log(newArrProductsOrder[index])
+
                 if (index !== -1) {
-                    // let productIndex = newArrProductsOrder[index];
+
+                    let quantity = newArrProductsOrder[index]['quantity'] += 1
+                    console.log(quantity);
                     // productIndex.quantity = 10
                 } else {
                     newArrProductsOrder.push(productAddToCart);
