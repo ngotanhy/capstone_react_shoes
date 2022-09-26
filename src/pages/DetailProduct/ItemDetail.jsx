@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { pushProductOrders } from '../../redux/reducer/productReducer';
 
-
-export default function DetailItemProduct({ product }) {
-    let { arrProductsOrder } = useSelector(state => state.productReducer)
+export default function ItemDetail({ product }) {
+    // let { arrProductsOrder } = useSelector(state => state.productReducer)
     const dispatch = useDispatch();
     const [size, setSize] = useState(0);
     const [quantity, setQuantity] = useState(1);
@@ -30,24 +29,7 @@ export default function DetailItemProduct({ product }) {
                 quantity: quantity,
                 image: product.image
             }
-
-            let newArrProductsOrder = [...arrProductsOrder];
-
-            if (newArrProductsOrder.length > 0) {
-                let index = newArrProductsOrder.findIndex(item => item.id === productAddToCart.id && item.size === productAddToCart.size);
-
-                if (index !== -1) {
-
-                    let quantity = newArrProductsOrder[index]['quantity'] += 1
-                    console.log(quantity);
-                    // productIndex.quantity = 10
-                } else {
-                    newArrProductsOrder.push(productAddToCart);
-                }
-            } else {
-                newArrProductsOrder.push(productAddToCart);
-            }
-            const action = pushProductOrders(newArrProductsOrder);
+            const action = pushProductOrders(productAddToCart);
             dispatch(action);
         }
     }

@@ -3,15 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { pushProductOrders } from '../../redux/reducer/productReducer';
 import { getStoreJSON } from '../../util/config';
-import ItemProductCard from './ItemProduct/ItemProductCard'
+import TableProduct from './ItemProductCart/tableProduct';
 
 export default function Cart() {
-
+  const navigator = useNavigate()
   const { arrProductsOrder } = useSelector(state => state.productReducer)
   const dispatch = useDispatch();
   const { userLogin } = useSelector(state => state.userReducer)
-  const navigator = useNavigate()
-  console.log(arrProductsOrder)
+  
   const orderProducts = async () => {
     try {
       let arrProductsOrderFilter = arrProductsOrder.filter((item) => item !== null)
@@ -52,7 +51,7 @@ export default function Cart() {
       <div className=" container">
         <h2 className="font-normal text-4xl mt-10 mb-3 pb-5 border-b-2  border-slate-900">Cart</h2>
         <div className="mb-5">
-          <ItemProductCard />
+          <TableProduct />
           <div className="flex justify-end mb-11 mt-4">
             <button className="font-semibold text-2xl text-white bg-orange-500 rounded-2xl hover:shadow-lg hover:shadow-orange-700/50 py-1 px-4"
               onClick={() => { orderProducts() }}

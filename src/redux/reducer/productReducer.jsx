@@ -18,17 +18,34 @@ const productReducer = createSlice({
             state.productById = payload;
         },
         pushProductOrders: (state, { payload }) => {
-            state.arrProductsOrder = payload;
+            let prod = {...payload};
+            let cartUpdate = [...state.arrProductsOrder];
+            let sp = cartUpdate.find((p) => p.id === prod.id);
+            if (sp) {
+                sp.quantity += prod.quantity;
+            } else {
+                cartUpdate.push(prod);
+            }
+            state.arrProductsOrder = cartUpdate;
         },
         deleteProductOrder: (state, { payload }) => {
             let newArrProductsOrder = [...state.arrProductsOrder].filter(item => item !== null);
             let orderFilter = newArrProductsOrder.filter(item => item.id !== payload.id && item.size !== payload.size)
             state.arrProductsOrder = orderFilter;
+        },
+        updateQuantity: (state, { payload }) => {
+            let newArrProductsOrder = [...state.arrProductsOrder].filter(item => item.id !== null);
+            let index = newArrProductsOrder.findIndex(item => item.id === payload.id)
+            console.log(index)
+            if (index > -1) {
+                newArrProductsOrder[index].quantity = payload.quantity;
+            }
+            state.arrProductsOrder = newArrProductsOrder;
         }
     }
 });
 
-export const { setArrProduct, setProductByID, pushProductOrders, deleteProductOrder } = productReducer.actions
+export const { setArrProduct, setProductByID, pushProductOrders, deleteProductOrder, updateQuantity } = productReducer.actions
 
 export default productReducer.reducer
 

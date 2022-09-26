@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import ItemProduct from './ItemProduct'
+import ItemProduct from './ItemTable'
 
-export default function ItemProductCard() {
+export default function TableProduct() {
     const { arrProductsOrder } = useSelector(state => state.productReducer)
 
     return (

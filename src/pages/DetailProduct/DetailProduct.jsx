@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ItemProduct from '../../componets/itemProduct/ItemProduct'
 import { getProductId } from '../../redux/reducer/productReducer';
-import DetailItemProduct from './DetailItemProduct'
+import ItemDetail from './ItemDetail';
 
 export default function DetailProduct() {
   const { id } = useParams();
@@ -19,7 +19,7 @@ export default function DetailProduct() {
   return (
     <>
       <div className="container">
-        <DetailItemProduct product={productById} />
+        <ItemDetail product={productById} />
       </div>
       <div className="bg-purple-100">
         <div className="container">

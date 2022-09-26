@@ -1,7 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { searchByName, sortProducts } from '../../util/templates';
 import Product from '../Product/Product'
 
 export default function Search() {
+    const [arraySearch, setArraySearch] = useState([])
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('');
+    const handleChangeInput = (e) => {
+        let value = e.target.value;
+        setSearch(value);
+    }
+    const handleChangeSelection = (e) => {
+        let value = e.target.value;
+        setType(value);
+    }
+    const { arrProducts } = useSelector(state => state.productReducer)
+
+    const handleSearch = () => {
+        let newArr = searchByName(search, arrProducts);
+        if (newArr.length > 0) {
+            if (type !== null) {
+                setArraySearch(sortProducts(type, newArr));
+            }
+            setArraySearch(newArr);
+        } else {
+            if (type !== null) {
+                setArraySearch(sortProducts(type, arrProducts));
+            }
+            setArraySearch(arrProducts);
+        }
+    }
+
+
     return (
         <>
             <div className="flex">
@@ -11,9 +42,12 @@ export default function Search() {
                         className="p-3 mr-1 bg-slate-100 text-black outline-none font-normal text-base w-443"
                         type="text"
                         id='search'
-                        placeholder="Search..." />
+                        placeholder="Search..."
+                        value={search}
+                        onChange={handleChangeInput} />
                     <button
-                        className="ml-9 bg-blue-600 rounded-3xl px-5 py-3 font-medium text-sm hover:bg-blue-500 shadow-lg shadow-blue-500/50">
+                        className="ml-9 bg-blue-600 rounded-3xl px-5 py-3 font-medium text-sm hover:bg-blue-500 shadow-lg shadow-blue-500/50"
+                        onClick={() => { handleSearch() }}>
                         SEARCH
                     </button>
                 </div>
@@ -23,16 +57,17 @@ export default function Search() {
                 <div className="container ">
                     <div className="sort mt-7">
                         <p className="font-medium text-lg mb-1">Price</p>
-                        <select className="w-443 font-normal text-base outline-none bg-slate-100 py-2">
-                            <option className="">decrease</option>
+                        <select className="w-443 font-normal text-base outline-none bg-slate-100 py-2"
+                            onChange={handleChangeSelection}>
+                            <option>decrease</option>
                             <option>increase</option>
                         </select>
                         <div className="w-443 font-normal text-base outline-none bg-slate-100 py-2 mt-2 pl-1">
-                           ascending
+                            ascending
                         </div>
                     </div>
                     <div className="">
-                        <Product />
+                        <Product arrProductsSearch={arraySearch} />
                     </div>
                 </div>
             </div>

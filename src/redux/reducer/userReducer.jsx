@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, getStoreJSON, http, setCookie, setStore, setStoreJSON, US
 import { history } from '../../main';
 
 const initialState = {
-    userLogin: getStoreJSON(USER_LOGIN)
+    userLogin: getStoreJSON(USER_LOGIN),
 }
 
 const userReducer = createSlice({
@@ -12,11 +12,11 @@ const userReducer = createSlice({
     reducers: {
         setUserLogin: (state, { payload }) => {
             state.userLogin = payload;
-        }
+        },
     }
 });
 
-export const { setUserLogin } = userReducer.actions
+export const { setUserLogin,setUserRegister } = userReducer.actions
 
 export default userReducer.reducer
 
@@ -65,3 +65,4 @@ export const getProfileApi = () => {
         }
     }
 }
+

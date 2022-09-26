@@ -12,8 +12,7 @@ export default function Order({orderHistory}) {
                 {orderHistory?.map((item, index) =>{
                     return <ItemOrder order={item} key={index}/>
                 })}
-            </div>
-            
+            </div>   
         </div>
     )
 }
