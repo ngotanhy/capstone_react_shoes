@@ -25,8 +25,8 @@ export default function DetailProduct() {
         <div className="container">
           <h2 className="text-center font-normal text-4xl pt-7">-Realate Product -</h2>
           <div className="flex gap-14 flex-wrap justify-around mt-10 ml-32 pb-28">
-            {productById?.relatedProducts?.map((item) => {
-              return <ItemProduct key={item.id} product={item} />
+            {productById?.relatedProducts?.map((item,index) => {
+              return <ItemProduct key={index} product={item} />
             })}
           </div>
         </div>

@@ -36,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       {/* <RouterProvider router={router} /> */}
       <Routes>
         <Route path='' element={<HomeTemplate />}>
+        
           <Route index element={<Home />} />
 
           <Route path='login' element={<Login />} />

@@ -4,6 +4,7 @@ import { history } from '../../main';
 
 const initialState = {
     userLogin: getStoreJSON(USER_LOGIN),
+    userProfile: []
 }
 
 const userReducer = createSlice({
@@ -13,10 +14,13 @@ const userReducer = createSlice({
         setUserLogin: (state, { payload }) => {
             state.userLogin = payload;
         },
+        setUserProfile: (state, { payload }) => {
+            state.userProfile = payload;
+        },
     }
 });
 
-export const { setUserLogin,setUserRegister } = userReducer.actions
+export const { setUserLogin, setUserProfile } = userReducer.actions
 
 export default userReducer.reducer
 
@@ -26,7 +30,7 @@ export const signInApi = (userLogin) => {
     //userLogin ={email:'', password:''}
     return async dispatch => {
         try {
-            let result = await http.post('/Users/signin',userLogin);
+            let result = await http.post('/Users/signin', userLogin);
             // await axios({
             //     url: 'https://shop.cyberlearn.vn/api/Users/signin',
             //     method: 'POST',
@@ -56,8 +60,7 @@ export const getProfileApi = () => {
     return async dispatch => {
         try {
             let result = await http.post('/Users/getProfile')
-            console.log('ket qua', result.data.content);
-            const action = setUserLogin(result.data.content);
+            const action = setUserProfile(result.data.content);
             dispatch(action);
         } catch (err) {
             console.log(err);

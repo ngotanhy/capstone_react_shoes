@@ -16,7 +16,8 @@ export default function ItemTable({ product }) {
     useEffect(() => {
             let payload = {
                 id: product.id,
-                quantity: quantity
+                quantity: quantity,
+                size:product.size
             }
             const action = updateQuantity(payload);
             dispatch(action);
@@ -68,11 +69,7 @@ export default function ItemTable({ product }) {
                     <button className="absolute font-semibold text-2xl text-white"
                         style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
                         onClick={() => {
-                            let payload = {
-                                id: product?.id,
-                                size: product?.size
-                            }
-                            const action = deleteProductOrder(payload)
+                            const action = deleteProductOrder(product)
                             dispatch(action);
                         }
                         }>Delete</button>

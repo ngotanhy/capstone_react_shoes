@@ -19,24 +19,24 @@ const productReducer = createSlice({
         },
         pushProductOrders: (state, { payload }) => {
             let prod = {...payload};
-            let cartUpdate = [...state.arrProductsOrder];
-            let sp = cartUpdate.find((p) => p.id === prod.id);
+            let newArrProductsOrder = [...state.arrProductsOrder];
+            let sp = newArrProductsOrder.find((p) => p.id === prod.id && Number(p.size) === Number(prod.size));
             if (sp) {
                 sp.quantity += prod.quantity;
             } else {
-                cartUpdate.push(prod);
+                newArrProductsOrder.push(prod);
             }
-            state.arrProductsOrder = cartUpdate;
+            state.arrProductsOrder = newArrProductsOrder;
         },
         deleteProductOrder: (state, { payload }) => {
-            let newArrProductsOrder = [...state.arrProductsOrder].filter(item => item !== null);
-            let orderFilter = newArrProductsOrder.filter(item => item.id !== payload.id && item.size !== payload.size)
-            state.arrProductsOrder = orderFilter;
+            let newArrProductsOrder = [...state.arrProductsOrder];
+            let index=newArrProductsOrder.findIndex(item => item.id === payload.id && item.size === payload.size)
+            newArrProductsOrder.splice(index,1)
+            state.arrProductsOrder = newArrProductsOrder
         },
         updateQuantity: (state, { payload }) => {
-            let newArrProductsOrder = [...state.arrProductsOrder].filter(item => item.id !== null);
-            let index = newArrProductsOrder.findIndex(item => item.id === payload.id)
-            console.log(index)
+            let newArrProductsOrder = [...state.arrProductsOrder];
+            let index = newArrProductsOrder.findIndex(item => item.id === payload.id && item.size=== payload.size)
             if (index > -1) {
                 newArrProductsOrder[index].quantity = payload.quantity;
             }

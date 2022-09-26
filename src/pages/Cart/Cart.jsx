@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { pushProductOrders } from '../../redux/reducer/productReducer';
-import { getStoreJSON } from '../../util/config';
+import { getStoreJSON, http } from '../../util/config';
 import TableProduct from './ItemProductCart/tableProduct';
 
 export default function Cart() {
@@ -10,7 +10,7 @@ export default function Cart() {
   const { arrProductsOrder } = useSelector(state => state.productReducer)
   const dispatch = useDispatch();
   const { userLogin } = useSelector(state => state.userReducer)
-  
+
   const orderProducts = async () => {
     try {
       let arrProductsOrderFilter = arrProductsOrder.filter((item) => item !== null)
@@ -26,9 +26,9 @@ export default function Cart() {
           "orderDetail": orderProducts,
           "email": userLogin.email
         }
-        console.log(dataOrder)
-        // const result = await http.post('//Users/order',dataOrder);
-        // console.log(result.status)
+        const result = await http.post('/Users/order',dataOrder);
+        alert(result.message)
+        console.log(result.status)
       } else {
         navigator('/login')
       }

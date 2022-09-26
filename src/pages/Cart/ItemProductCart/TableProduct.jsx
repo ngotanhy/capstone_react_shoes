@@ -7,7 +7,7 @@ export default function TableProduct() {
 
     return (
         <>
-            <div className="min-w-full font-normal text-xl mt-3 bg-slate-300 flex flex-row justify-center" style={{alignItems:'center'}}>
+            <div className="min-w-full font-normal text-xl mt-3 bg-slate-300 flex flex-row justify-center" style={{ alignItems: 'center' }}>
                 <div className='pt-2 pl-3 text-blue-700 hover:text-blue-900 cursor-pointer basis-1/12'>
                     <svg class="w-6 h-6"
                         fill="none" stroke="currentColor"
@@ -29,9 +29,9 @@ export default function TableProduct() {
                 <div className='py-2  basis-1/12'>Total</div>
                 <div className='py-2  text-center basis-2/12'>Action</div>
             </div>
-            <div className='overflow-auto' style={{height: '203px'}}>
-                {arrProductsOrder?.map(product => {
-                    return product !== null ? <ItemProduct key={product?.id} product={product} /> : ''
+            <div className='overflow-auto' style={{ height: '203px' }}>
+                {arrProductsOrder?.map((product) => {
+                    return <ItemProduct key={product.size} product={product} />
                 })}
             </div>
         </>
