@@ -47,11 +47,11 @@ export const signInApi = (userLogin) => {
             // dua len userLogin thanh cong len reducer
             const action = setUserLogin(result.data.content);
             dispatch(action);
-            history.push('/profile');
+            history.push('/home');
         } catch (err) {
             console.log(err)
             alert('dăng nhap sai')
-            // history.push('/login')
+            history.push('/login')
         }
     }
 }
@@ -64,7 +64,6 @@ export const getProfileApi = () => {
             dispatch(action);
         } catch (err) {
             console.log(err);
-
         }
     }
 }

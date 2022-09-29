@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { deleteProductOrder, updateQuantity } from '../../../redux/reducer/productReducer';
 
 export default function ItemTable({ product }) {
+    console.log(product);
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(product?.quantity);
 
@@ -14,14 +15,14 @@ export default function ItemTable({ product }) {
     }
 
     useEffect(() => {
-            let payload = {
-                id: product.id,
-                quantity: quantity,
-                size:product.size
-            }
-            const action = updateQuantity(payload);
-            dispatch(action);
-    },[quantity])
+        let payload = {
+            id: product.id,
+            quantity: quantity,
+            size: product.size
+        }
+        const action = updateQuantity(payload);
+        dispatch(action);
+    }, [quantity])
 
     return (
         <div className=" flex flex-row font-normal text-xl" style={{ alignItems: 'center' }}>
@@ -43,6 +44,7 @@ export default function ItemTable({ product }) {
                 <img src={product?.image} alt='...' className='w-full h-full' />
             </div>
             <div className='basis-3/12 pl-1'>{product?.name}</div>
+            <div className='basis-1/12 pl-1'>{product?.size}</div>
             <div className='basis-1/12'>{product?.price}$</div>
             <div className='flex gap-x-4 basis-2/12'>
                 <div className="w-10 h-10 relative bg-blue-600 rounded-xl hover:shadow-lg hover:shadow-indigo-500/50">

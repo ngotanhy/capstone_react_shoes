@@ -8,7 +8,7 @@ export default function ItemOrder({ itemOrder , index}) {
     })
 
     return (
-        <tr >
+        <tr className='' >
             <td className='py-2 pl-2'>{index}</td>
             <td className='py-2 pl-2 w-20 h-20' >
                 <img src={itemOrder?.image} alt='...' className="w-full h-full" />

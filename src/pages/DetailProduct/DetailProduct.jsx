@@ -17,20 +17,20 @@ export default function DetailProduct() {
   }, [id])
 
   return (
-    <>
-      <div className="container">
+    <div className="relative">
+      <div className="container ">
         <ItemDetail product={productById} />
       </div>
-      <div className="bg-purple-100">
+      <div className="pb-6 md:mb-0">
         <div className="container">
           <h2 className="text-center font-normal text-4xl pt-7">-Realate Product -</h2>
-          <div className="flex gap-14 flex-wrap justify-around mt-10 ml-32 pb-28">
-            {productById?.relatedProducts?.map((item,index) => {
+          <div className="flex lg:gap-14 gap-y-4 flex-wrap justify-around mt-10 sm:mb-14 mb-4">
+            {productById?.relatedProducts?.map((item, index) => {
               return <ItemProduct key={index} product={item} />
             })}
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

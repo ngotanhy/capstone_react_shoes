@@ -33,15 +33,14 @@ export default function Register() {
 
       let result = await http.post('/Users/signup', userRegister);
       console.log(result);
-
     }
   });
 
   return (
-    <div className='container   '>
-      <form className='basis-3/4' onSubmit={formik.handleSubmit} >
-        <div className="flex mt-8">
-          <div className="basis-1/2 register-left">
+    <div className='container'>
+      <form className='' onSubmit={formik.handleSubmit} >
+        <div className="md:flex md:mt-8 mt-12 w-full px-8 md:px-0 md:space-x-20">
+          <div className="basis-1/2">
             <div className="w-full h-24">
               <label htmlFor="email" className='block'>Email</label>
               <input type="text"
@@ -81,7 +80,7 @@ export default function Register() {
           </div>
 
 
-          <div className="basis-1/2 register-right">
+          <div className="basis-1/2 ">
             <div className="w-full h-24">
               <label htmlFor="name" className='block'>Name</label>
               <input type="text"

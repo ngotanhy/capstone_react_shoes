@@ -24,6 +24,8 @@ import Cart from './pages/Cart/Cart'
 //scss
 import './assets/scss/style.scss';
 import Search from './pages/Search/Search';
+import HomeMobile from './templates/HomeMobile';
+import Responsive from './templates/Responsive';
 
 //Cấu hình react router dom
 export const history = createBrowserHistory({ window });
@@ -35,8 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <HistoryRouter history={history}>
       {/* <RouterProvider router={router} /> */}
       <Routes>
-        <Route path='' element={<HomeTemplate />}>
-        
+        <Route path='' element={<Responsive component={HomeTemplate} componentMobile={HomeMobile} />}>
           <Route index element={<Home />} />
 
           <Route path='login' element={<Login />} />

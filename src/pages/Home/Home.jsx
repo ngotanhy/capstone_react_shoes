@@ -9,7 +9,7 @@ export default function Home() {
         <Carousel />
       </section>
       <section className="mt-12">
-        <h2 className="font-normal text-4xl w-698 backGroundGradient p-3 ">Product Feature</h2>
+        <h2 className="font-normal text-4xl w-full md:w-698 backGroundGradient p-3 ">Product Feature</h2>
         <div className="container">
           <Product />
         </div>

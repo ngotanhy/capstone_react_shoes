@@ -28,3 +28,10 @@ export const sortProducts = (type, array) => {
         return array.reverse();
     }
 }
+
+export const truncateString = (value, length) => {
+    let widthScreen = window.innerWidth;
+    if (widthScreen < 768) {
+        return value?.slice(0, length) + '...';
+    } else return value
+}

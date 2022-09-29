@@ -4,7 +4,7 @@ import ItemProduct from './ItemTable'
 
 export default function TableProduct() {
     const { arrProductsOrder } = useSelector(state => state.productReducer)
-
+    console.log(arrProductsOrder);
     return (
         <>
             <div className="min-w-full font-normal text-xl mt-3 bg-slate-300 flex flex-row justify-center" style={{ alignItems: 'center' }}>
@@ -24,12 +24,13 @@ export default function TableProduct() {
                 <div className='py-2 basis-1/12'>ID</div>
                 <div className='py-2  basis-1/12 pr-5'>Img</div>
                 <div className='py-2  basis-3/12'> Name</div>
+                <div className='py-2  basis-1/12'>size</div>
                 <div className='py-2  basis-1/12'>Price</div>
                 <div className='py-2  basis-2/12'>Quantity</div>
                 <div className='py-2  basis-1/12'>Total</div>
                 <div className='py-2  text-center basis-2/12'>Action</div>
             </div>
-            <div className='overflow-auto' style={{ height: '203px' }}>
+            <div className='overflow-auto' style={{ height: '195px' }}>
                 {arrProductsOrder?.map((product) => {
                     return <ItemProduct key={product.size} product={product} />
                 })}

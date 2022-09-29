@@ -1,61 +1,71 @@
 import { Transition } from '@headlessui/react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import urlLogo from '../assets/img/logo.png'
+import Footer from '../componets/Footer/Footer';
+import { history } from '../main';
+import { setStoreJSON } from '../util/config';
 
 export default function HomeMobile() {
+  const [count, setCount] = useState(0);
+  const { arrProductsOrder } = useSelector(state => state.productReducer)
+  const { userLogin } = useSelector(state => state.userReducer)
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (userLogin == null) { history.push('/login') }
+    if (arrProductsOrder !== null) {
+      setCount(arrProductsOrder.length)
+    }
+  }, [userLogin, arrProductsOrder])
+
   return (
-    <div>
-      <nav className="bg-gray-800">
+    <>
+      <nav className="bg-gray-800 w-full fixed z-10 top-0 left-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-12">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img
-                  className="h-8 w-8"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                  alt="Workflow"
+                  className="h-7 w-16"
+                  src={urlLogo}
+                  alt="..."
+                  onClick={() => { navigate('/home') }}
                 />
               </div>
-              <div className="hidden md:block">
-                <div className="ml-10 flex items-baseline space-x-4">
-                  <a
-                    href="#"
-                    className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Dashboard
-                  </a>
-
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Team
-                  </a>
-
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Projects
-                  </a>
-
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Calendar
-                  </a>
-
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Reports
-                  </a>
-                </div>
-              </div>
+              {userLogin !== null ? <NavLink className="text-white ml-3 mr-3" to='/profile'>Profile</NavLink> : <NavLink className="text-white ml-3 mr-3" to='/login'>Login</NavLink>}
+              <NavLink className="text-white ml-3 mr-3 flex" to='/Cart'
+                onClick={() => {
+                  setStoreJSON('arrProductsOrder', arrProductsOrder)
+                }}
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                  </path>
+                </svg>
+                <span>({count})</span>
+              </NavLink>
+              <NavLink to='/search' className='text-white mr-3 ' >
+                <svg class="w-6 h-6" fill="none" 
+                stroke="currentColor" viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                </path></svg>
+              </NavLink>
             </div>
-            <div className="-mr-2 flex md:hidden">
+            <div className="-mr-2 flex ">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
@@ -66,7 +76,7 @@ export default function HomeMobile() {
                 <span className="sr-only">Open main menu</span>
                 {!isOpen ? (
                   <svg
-                    className="block h-6 w-6"
+                    className="block h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -82,7 +92,7 @@ export default function HomeMobile() {
                   </svg>
                 ) : (
                   <svg
-                    className="block h-6 w-6"
+                    className="block h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -112,62 +122,30 @@ export default function HomeMobile() {
           leaveTo="opacity-0 scale-95"
         >
           {(ref) => (
-            <div className="md:hidden" id="mobile-menu">
-              <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a
-                  href="#"
-                  className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Dashboard
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Team
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Projects
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Calendar
-                </a>
-
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Reports
-                </a>
+            <div className="fixed bg-slate-500 w-full text-white z-100" id="mobile-menu">
+              <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3 relative z-10">
+                <nav className="flex flex-col bg-slate-600 text-white ">
+                  {[
+                    ['Home', '/home'],
+                    ['Men', '/'],
+                    ['Woman', '/'],
+                    ['Kid', '/'],
+                    ['Sport', '/'],
+                    ['Register', '/register']
+                  ].map(([title, url], index) => (
+                    <NavLink to={url} className="rounded-lg px-3 test py-2 font-medium hover:text-slate-300" key={index}
+                      onClick={() => { setIsOpen(false) }}>{title}</NavLink>
+                  ))}
+                </nav>
               </div>
             </div>
           )}
         </Transition>
       </nav>
 
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        </div>
-      </header>
-      <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* <!-- Replace with your content --> */}
-          <div className="px-4 py-6 sm:px-0">
-            <div className="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
-          </div>
-          {/* <!-- /End replace --> */}
-        </div>
-      </main>
-    </div>
+
+      <Outlet />
+      <Footer />
+    </>
   )
 }

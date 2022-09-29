@@ -13,7 +13,7 @@ export default function Product({ arrProductsSearch }) {
   }, [])
 
   return (
-    <div className="flex gap-20 flex-wrap justify-around mt-10 mb-28 ">
+    <div className="flex xl:gap-20 gap-y-4 flex-wrap justify-around mt-10 sm:mb-14 mb-5 ">
       {
         arrProductsSearch?.length > 0 ? arrProductsSearch?.map((item) => {
           return <ItemProduct key={item.id} product={item} />

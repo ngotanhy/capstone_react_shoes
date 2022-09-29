@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <>
       <SubHeader/>
-      <nav className="flex sm:justify-start space-x-4 bg-slate-600 text-white">
+      <nav className="md:flex sm:justify-start space-x-4 bg-slate-600 text-white">
         {[
           ['Home', '/home'],
           ['Men', '/'],

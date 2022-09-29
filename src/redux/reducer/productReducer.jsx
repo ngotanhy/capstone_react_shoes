@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { http } from '../../util/config';
+import { getStoreJSON, http } from '../../util/config';
 
 const initialState = {
     arrProducts: [],
     productById: [],
-    arrProductsOrder: []
+    arrProductsOrder: getStoreJSON('arrProductsOrder') !==null ? getStoreJSON('arrProductsOrder') : []
 }
 
 const productReducer = createSlice({
@@ -18,7 +18,7 @@ const productReducer = createSlice({
             state.productById = payload;
         },
         pushProductOrders: (state, { payload }) => {
-            let prod = {...payload};
+            let prod = { ...payload };
             let newArrProductsOrder = [...state.arrProductsOrder];
             let sp = newArrProductsOrder.find((p) => p.id === prod.id && Number(p.size) === Number(prod.size));
             if (sp) {
@@ -30,13 +30,13 @@ const productReducer = createSlice({
         },
         deleteProductOrder: (state, { payload }) => {
             let newArrProductsOrder = [...state.arrProductsOrder];
-            let index=newArrProductsOrder.findIndex(item => item.id === payload.id && item.size === payload.size)
-            newArrProductsOrder.splice(index,1)
+            let index = newArrProductsOrder.findIndex(item => item.id === payload.id && item.size === payload.size)
+            newArrProductsOrder.splice(index, 1)
             state.arrProductsOrder = newArrProductsOrder
         },
         updateQuantity: (state, { payload }) => {
             let newArrProductsOrder = [...state.arrProductsOrder];
-            let index = newArrProductsOrder.findIndex(item => item.id === payload.id && item.size=== payload.size)
+            let index = newArrProductsOrder.findIndex(item => item.id === payload.id && item.size === payload.size)
             if (index > -1) {
                 newArrProductsOrder[index].quantity = payload.quantity;
             }
