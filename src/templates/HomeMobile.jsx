@@ -5,28 +5,33 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import urlLogo from '../assets/img/logo.png'
 import Footer from '../componets/Footer/Footer';
 import { history } from '../main';
-import { setStoreJSON } from '../util/config';
+import { clearLocalStorage, setStoreJSON } from '../util/config';
 
 export default function HomeMobile() {
   const [count, setCount] = useState(0);
+  const [check, setCheck] = useState(false);
   const { arrProductsOrder } = useSelector(state => state.productReducer)
   const { userLogin } = useSelector(state => state.userReducer)
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (userLogin == null) { history.push('/login') }
+    if (userLogin === null) { history.push('/login') } else { setCheck(true) }
+
+  }, [userLogin])
+
+  useEffect(() => {
     if (arrProductsOrder !== null) {
       setCount(arrProductsOrder.length)
     }
-  }, [userLogin, arrProductsOrder])
+  }, [arrProductsOrder])
 
   return (
     <>
       <nav className="bg-gray-800 w-full fixed z-10 top-0 left-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12">
-            <div className="flex items-center">
+            <div className="flex items-center text-white">
               <div className="flex-shrink-0">
                 <img
                   className="h-7 w-16"
@@ -35,7 +40,17 @@ export default function HomeMobile() {
                   onClick={() => { navigate('/home') }}
                 />
               </div>
-              {userLogin !== null ? <NavLink className="text-white ml-3 mr-3" to='/profile'>Profile</NavLink> : <NavLink className="text-white ml-3 mr-3" to='/login'>Login</NavLink>}
+              {check ? <>
+                <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500"
+                  onClick={() => {
+                    clearLocalStorage('userLogin');
+                    clearLocalStorage('accessToken');
+                    setCheck(false)
+                    setCount(0)
+                  }}>LogOut</NavLink>
+                <NavLink to='/profile' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Profile</NavLink>
+              </>
+                : <NavLink className="text-white ml-3 mr-3" to='/login'>Login</NavLink>}
               <NavLink className="text-white ml-3 mr-3 flex" to='/Cart'
                 onClick={() => {
                   setStoreJSON('arrProductsOrder', arrProductsOrder)
@@ -57,12 +72,12 @@ export default function HomeMobile() {
                 <span>({count})</span>
               </NavLink>
               <NavLink to='/search' className='text-white mr-3 ' >
-                <svg class="w-6 h-6" fill="none" 
-                stroke="currentColor" viewBox="0 0 24 24" 
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-                </path></svg>
+                <svg class="w-6 h-6" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                  </path></svg>
               </NavLink>
             </div>
             <div className="-mr-2 flex ">

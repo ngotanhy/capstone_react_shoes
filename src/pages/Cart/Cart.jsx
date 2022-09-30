@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { pushProductOrders } from '../../redux/reducer/productReducer';
 import Responsive from '../../templates/Responsive';
-import { clearLocalStorage, getStoreJSON, http } from '../../util/config';
+import { http } from '../../util/config';
 import CartMobile from './ItemProCartMobile/CartMobile';
 import TableProduct from './ItemProductCart/tableProduct';
 
 export default function Cart() {
-  const navigator = useNavigate()
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { arrProductsOrder } = useSelector(state => state.productReducer)
   const { userLogin } = useSelector(state => state.userReducer)
 
@@ -18,20 +16,25 @@ export default function Cart() {
     try {
       let arrProductsOrderFilter = arrProductsOrder.filter((item) => item !== null)
       if (arrProductsOrderFilter.length > 0) {
-        let orderProducts = arrProductsOrderFilter?.reduce((order, product) => {
-          order.push({
-            "productId": product?.id,
-            "quantity": product?.quantity
-          })
-          return order
-        }, [])
-        let dataOrder = {
-          "orderDetail": orderProducts,
-          "email": userLogin.email
+        if (userLogin === null) {
+          alert('hay dang nhap')
+          navigate('/login')
+        } else {
+          let orderProducts = arrProductsOrderFilter?.reduce((order, product) => {
+            order.push({
+              "productId": product?.id,
+              "quantity": product?.quantity
+            })
+            return order
+          }, [])
+          let dataOrder = {
+            "orderDetail": orderProducts,
+            "email": userLogin.email
+          }
+          await http.post('/Users/order', dataOrder);
         }
-        await http.post('/Users/order', dataOrder);
       } else {
-        navigator('/login')
+        navigate('/login')
       }
     }
     catch (err) {
@@ -39,13 +42,6 @@ export default function Cart() {
     }
   }
 
-  useEffect(() => {
-    let arrProductOrder = getStoreJSON('arrProductOrder');
-    if (arrProductOrder !== null) {
-      const action = pushProductOrders(arrProductOrder);
-      dispatch(action);
-    }
-  }, [arrProductsOrder])
 
   return (
     <>
@@ -55,7 +51,7 @@ export default function Cart() {
           <Responsive component={TableProduct} componentMobile={CartMobile} />
           <div className="flex justify-end mb-11 mt-4 ">
             <button className="font-semibold text-2xl text-white bg-orange-500 rounded-2xl hover:shadow-lg hover:shadow-orange-700/50 py-1 px-4"
-              onClick={async () => { await orderProducts(), clearLocalStorage('arrProductsOrder') }}
+              onClick={() => { orderProducts() }}
             >
               SUBMIT ORDER
             </button>

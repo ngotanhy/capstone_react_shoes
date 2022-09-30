@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import '../../assets/scss/pages/_product.scss';
 import ItemProduct from '../../componets/itemProduct/ItemProduct'
 import { getProductApi } from '../../redux/reducer/productReducer';
 
-export default function Product({ arrProductsSearch }) {
+const Product = ({ arrProductsSearch }) => {
   const { arrProducts } = useSelector(state => state.productReducer)
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,3 +24,4 @@ export default function Product({ arrProductsSearch }) {
     </div>
   )
 }
+export default memo(Product)

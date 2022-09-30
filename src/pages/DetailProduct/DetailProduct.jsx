@@ -9,8 +9,6 @@ export default function DetailProduct() {
   const { id } = useParams();
   const { productById } = useSelector(state => state.productReducer);
   const dispatch = useDispatch();
-
-
   useEffect(() => {
     const action = getProductId(id);
     dispatch(action)

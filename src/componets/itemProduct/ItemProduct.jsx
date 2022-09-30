@@ -1,8 +1,9 @@
 import React from 'react'
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import urlProduct from '../../assets/img/shoes.png'
 
-export default function ItemProduct({product}) {
+const ItemProduct=({product})=> {
     const navigate = useNavigate();
     return (
         <>
@@ -47,3 +48,5 @@ export default function ItemProduct({product}) {
         </>
     )
 }
+
+export default memo(ItemProduct)

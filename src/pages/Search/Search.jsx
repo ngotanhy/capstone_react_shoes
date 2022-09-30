@@ -1,32 +1,35 @@
 import React, { useState } from 'react'
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { searchByName, sortProducts } from '../../util/templates';
 import Product from '../Product/Product'
 
 export default function Search() {
+    const search =useRef('')
+    const type = useRef('');
     const [arraySearch, setArraySearch] = useState([])
-    const [search, setSearch] = useState('');
-    const [type, setType] = useState('');
+    
+    const { arrProducts } = useSelector(state => state.productReducer)
+
     const handleChangeInput = (e) => {
-        let value = e.target.value;
-        setSearch(value);
+        let value=e.target.value;
+        search.current =value;
     }
     const handleChangeSelection = (e) => {
         let value = e.target.value;
-        setType(value);
+        type.current=value;
     }
-    const { arrProducts } = useSelector(state => state.productReducer)
 
     const handleSearch = () => {
-        let newArr = searchByName(search, arrProducts);
+        let newArr = searchByName(search.current.toString(), arrProducts);
         if (newArr.length > 0) {
-            if (type !== null) {
-                setArraySearch(sortProducts(type, newArr));
+            if (type.current !== null) {
+                setArraySearch(sortProducts(type.current, newArr));
             }
             setArraySearch(newArr);
         } else {
-            if (type !== null) {
-                setArraySearch(sortProducts(type, arrProducts));
+            if (type.current !== null) {
+                setArraySearch(sortProducts(type.current, arrProducts));
             }
             setArraySearch(arrProducts);
         }
@@ -44,7 +47,6 @@ export default function Search() {
                             type="text"
                             id='search'
                             placeholder="Search..."
-                            value={search}
                             onChange={handleChangeInput} />
                         <button
                             className="md:ml-9 mt-2 md:mt-0 w-full basis-1/3 bg-blue-600 rounded-3xl px-5 py-3 font-medium text-sm hover:bg-blue-500 shadow-lg shadow-blue-500/50"

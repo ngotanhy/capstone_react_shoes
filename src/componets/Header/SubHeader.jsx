@@ -13,10 +13,14 @@ export default function subHeader() {
 
     useEffect(() => {
         if (userLogin === null) { history.push('/login') } else { setCheck(true) }
+
+    }, [userLogin])
+
+    useEffect(() => {
         if (arrProductsOrder !== null) {
             setCount(arrProductsOrder.length)
         }
-    }, [userLogin, arrProductsOrder])
+    }, [arrProductsOrder])
 
     return (
         <nav className="px-6 flex justify-items-center bg-black">
