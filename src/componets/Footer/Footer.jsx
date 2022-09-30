@@ -4,7 +4,7 @@ import '../../assets/scss/pages/_footer.scss';
 export default function Footer() {
   return (
     <footer >
-      <div className="flex sm:justify-evenly md:space-x-80 justify-center text-black ">
+      <div className="flex sm:justify-evenly lg:space-x-80 justify-center text-black ">
         <div className="mr-3 md:mr-0 ">
           <h3 className="font-bold uppercase ">Get Help</h3>
           <ul className="font-normal text-center md:text-left">

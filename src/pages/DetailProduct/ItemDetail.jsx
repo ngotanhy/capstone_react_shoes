@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { pushProductOrders } from '../../redux/reducer/productReducer';
+import { truncateString } from '../../util/templates';
 
 export default function ItemDetail({ product }) {
     const dispatch = useDispatch();
     const [size, setSize] = useState(0);
     const [quantity, setQuantity] = useState(1);
+    
 
     const handleQuantity = (number) => {
         setQuantity(quantity + number);
@@ -17,6 +18,7 @@ export default function ItemDetail({ product }) {
 
     const addToCart = () => {
         if (size == 0) {
+            alert('hay chon size')
         } else {
             let productAddToCart = {
                 id: product.id,
@@ -31,7 +33,7 @@ export default function ItemDetail({ product }) {
             dispatch(action);
         }
     }
-
+   
 
     return (
         <>
@@ -42,14 +44,14 @@ export default function ItemDetail({ product }) {
                     </div>
                     <div className="md:basis-2/3 px-5 md:px-0 ">
                         <h2 className="font-light text-3xl">{product?.name}</h2>
-                        <p className="font-normal text-base">{product?.description}</p>
+                        <p className="font-normal text-base">{truncateString(product?.description)}</p>
                         <p className="font-medium text-2xl text-green-500">Available size</p>
                         <div className="flex md:gap-x-6 gap-x-1 md:mt-2 ">
                             {product?.size?.map((item, index) => {
                                 return <div className={item === size ? 'w-12 h-12 bg-red-600 text-white relative' : 'w-12 h-12 bg-slate-200 relative hover:shadow-red-500 hover:shadow-lg'} key={index}>
                                     <button className="absolute font-semibold text-2xl "
                                         style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
-                                        onClick={() => { setSize(item) }}>
+                                        onClick={() => {setSize(item)} }>
                                         {item}
                                     </button>
                                 </div>

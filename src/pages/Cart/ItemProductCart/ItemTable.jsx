@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { deleteProductOrder, updateQuantity } from '../../../redux/reducer/productReducer';
 
 export default function ItemTable({ product }) {
-    console.log(product);
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(product?.quantity);
 

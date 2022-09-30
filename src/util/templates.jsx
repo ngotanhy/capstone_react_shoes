@@ -29,9 +29,11 @@ export const sortProducts = (type, array) => {
     }
 }
 
-export const truncateString = (value, length) => {
+export const truncateString = (value) => {
     let widthScreen = window.innerWidth;
     if (widthScreen < 768) {
-        return value?.slice(0, length) + '...';
-    } else return value
+        return value?.slice(0, 50) + '...';
+    } else if (widthScreen < 640) {
+        return value?.slice(0, 20) + '...';
+    } else return value;
 }

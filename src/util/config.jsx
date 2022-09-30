@@ -90,7 +90,7 @@ http.interceptors.request.use((configs) => {
 
 //Cấu hình kết quả trả về
 http.interceptors.response.use((response) => {
-    console.log(response);
+    // console.log(response);
     return response;
 }, err => {
     // const originalRequest = error.config;
@@ -100,7 +100,7 @@ http.interceptors.response.use((response) => {
         return Promise.reject(err);
     }
     if (err.response.status === 401 || err.response.status === 403) {
-        alert('Token không hợp lệ ! Vui lòng đăng nhập lại !');
+        // alert('Token không hợp lệ ! Vui lòng đăng nhập lại !');
         history.push('/login');
         return Promise.reject(err)
     }

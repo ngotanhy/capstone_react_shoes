@@ -59,7 +59,7 @@ export const getProductApi = () => {
     return async dispatch => {
         try {
             const result = await http.get('/Product');
-            console.log(result)
+            // console.log(result)
             const action = setArrProduct(result.data.content);
             dispatch(action)
         } catch (error) {

@@ -12,7 +12,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const { arrProductsOrder } = useSelector(state => state.productReducer)
   const { userLogin } = useSelector(state => state.userReducer)
-  
+
 
   const orderProducts = async () => {
     try {
@@ -29,8 +29,7 @@ export default function Cart() {
           "orderDetail": orderProducts,
           "email": userLogin.email
         }
-        const result = await http.post('/Users/order', dataOrder);
-        
+        await http.post('/Users/order', dataOrder);
       } else {
         navigator('/login')
       }
@@ -46,18 +45,17 @@ export default function Cart() {
       const action = pushProductOrders(arrProductOrder);
       dispatch(action);
     }
-  }, [])
+  }, [arrProductsOrder])
 
   return (
     <>
-      <div className="sm:container px-3 mt-12">
+      <div className="xl:container sm:w-full px-3 mt-12">
         <h2 className="font-normal text-4xl mt-10 mb-3 pb-5 border-b-2  border-slate-900">Cart</h2>
         <div className="mb-5">
-          {/* <TableProduct /> */}
           <Responsive component={TableProduct} componentMobile={CartMobile} />
           <div className="flex justify-end mb-11 mt-4 ">
             <button className="font-semibold text-2xl text-white bg-orange-500 rounded-2xl hover:shadow-lg hover:shadow-orange-700/50 py-1 px-4"
-              onClick={() => { orderProducts(), clearLocalStorage('arrProductsOrder') }}
+              onClick={async () => { await orderProducts(), clearLocalStorage('arrProductsOrder') }}
             >
               SUBMIT ORDER
             </button>

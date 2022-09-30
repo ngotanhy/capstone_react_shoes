@@ -3,14 +3,16 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import urlImgLogo from '../../assets/img/logo.png'
 import { history } from '../../main';
+import { clearLocalStorage } from '../../util/config';
 
 export default function subHeader() {
     const [count, setCount] = useState(0);
     const { userLogin } = useSelector(state => state.userReducer);
     const { arrProductsOrder } = useSelector(state => state.productReducer);
+    const [check, setCheck] = useState(false);
 
     useEffect(() => {
-        if (userLogin == null) { history.push('/login') }
+        if (userLogin === null) { history.push('/login') } else { setCheck(true) }
         if (arrProductsOrder !== null) {
             setCount(arrProductsOrder.length)
         }
@@ -49,8 +51,17 @@ export default function subHeader() {
                     </svg>
                     <span>({count})</span>
                 </NavLink>
-                {userLogin !== null ?
-                    <NavLink to='/profile' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Profile</NavLink>
+                {check ?
+                    <>
+                        <NavLink to='/profile' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Profile</NavLink>
+                        <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500"
+                            onClick={() => {
+                                clearLocalStorage('userLogin');
+                                clearLocalStorage('accessToken');
+                                setCheck(false)
+                                setCount(0)
+                            }}>Log out</NavLink>
+                    </>
                     :
                     <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Login</NavLink>
                 }

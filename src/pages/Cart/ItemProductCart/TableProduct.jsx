@@ -4,7 +4,6 @@ import ItemProduct from './ItemTable'
 
 export default function TableProduct() {
     const { arrProductsOrder } = useSelector(state => state.productReducer)
-    console.log(arrProductsOrder);
     return (
         <>
             <div className="min-w-full font-normal text-xl mt-3 bg-slate-300 flex flex-row justify-center" style={{ alignItems: 'center' }}>

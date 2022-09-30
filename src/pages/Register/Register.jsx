@@ -33,6 +33,10 @@ export default function Register() {
 
       let result = await http.post('/Users/signup', userRegister);
       console.log(result);
+      if(result.status===200){
+        alert(result.message);
+        // navigate('/')
+      }
     }
   });
 

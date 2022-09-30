@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import '../../assets/scss/components/_toast.module.scss'
 export default function Toast({ content, type }) {
     const [color, setColor] = useState('green')
     const [isOpen, setIsOpen] = useState(true)
     const handleChangeColor = () => {
         switch (type) {
+            case 'success': {
+                setColor('green')
+                setIsOpen(true)
+                break;
+            }
             case 'fairly': {
                 setColor('red')
+                setIsOpen(true)
                 break;
             }
             case 'waning': {
                 setColor('yellow')
+                setIsOpen(true)
                 break;
             }
             default: break;

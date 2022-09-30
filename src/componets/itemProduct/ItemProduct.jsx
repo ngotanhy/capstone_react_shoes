@@ -6,7 +6,7 @@ export default function ItemProduct({product}) {
     const navigate = useNavigate();
     return (
         <>
-            <div className="xl:w-334 md:w-72 itemProduct bg-slate-100 overflow-hidden w-full px-3 md:px-0">
+            <div className="xl:w-334 sm:w-72 itemProduct bg-slate-100 overflow-hidden w-full px-3 md:px-0">
                 <div className="relative">
                     <img
                         src={product?.image}
