@@ -13,4 +13,5 @@ export default defineConfig({
     host: true,
     open: false,
   },
+  basis:'/capstone_react_shoes/'
 })
