@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Navigate, Route, RouterProvider, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 
 //cai history npm install --save history
@@ -19,13 +19,15 @@ import Login from './pages/Login/Login'
 import DetailProduct from './pages/DetailProduct/DetailProduct'
 import Profile from './pages/Profile/Profile'
 import Cart from './pages/Cart/Cart'
-// import { router } from './route/arrRoute'
-
-//scss
-import './assets/scss/style.scss';
 import Search from './pages/Search/Search';
 import HomeMobile from './templates/HomeMobile';
 import Responsive from './templates/Responsive';
+
+
+//scss
+import './assets/scss/style.scss';
+
+
 
 //Cấu hình react router dom
 export const history = createBrowserHistory({ window });

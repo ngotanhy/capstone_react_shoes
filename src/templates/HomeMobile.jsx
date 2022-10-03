@@ -40,16 +40,8 @@ export default function HomeMobile() {
                   onClick={() => { navigate('/home') }}
                 />
               </div>
-              {check ? <>
-                <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500"
-                  onClick={() => {
-                    clearLocalStorage('userLogin');
-                    clearLocalStorage('accessToken');
-                    setCheck(false)
-                    setCount(0)
-                  }}>LogOut</NavLink>
+              {check ?
                 <NavLink to='/profile' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500">Profile</NavLink>
-              </>
                 : <NavLink className="text-white ml-3 mr-3" to='/login'>Login</NavLink>}
               <NavLink className="text-white ml-3 mr-3 flex" to='/Cart'
                 onClick={() => {
@@ -72,11 +64,16 @@ export default function HomeMobile() {
                 <span>({count})</span>
               </NavLink>
               <NavLink to='/search' className='text-white mr-3 ' >
-                <svg class="w-6 h-6" fill="none"
-                  stroke="currentColor" viewBox="0 0 24 24"
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
                   </path></svg>
               </NavLink>
             </div>
@@ -140,17 +137,27 @@ export default function HomeMobile() {
             <div className="fixed bg-slate-500 w-full text-white z-100" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3 relative z-10">
                 <nav className="flex flex-col bg-slate-600 text-white ">
-                  {[
-                    ['Home', '/home'],
-                    ['Men', '/'],
-                    ['Woman', '/'],
-                    ['Kid', '/'],
-                    ['Sport', '/'],
-                    ['Register', '/register']
-                  ].map(([title, url], index) => (
-                    <NavLink to={url} className="rounded-lg px-3 test py-2 font-medium hover:text-slate-300" key={index}
-                      onClick={() => { setIsOpen(false) }}>{title}</NavLink>
-                  ))}
+                  <>
+                    {[
+                      ['Home', '/home'],
+                      ['Men', '/'],
+                      ['Woman', '/'],
+                      ['Kid', '/'],
+                      ['Sport', '/'],
+                      ['Register', '/register']
+                    ].map(([title, url], index) => (
+                      <NavLink to={url} className="rounded-lg px-3 test py-2 font-medium hover:text-slate-300" key={index}
+                        onClick={() => { setIsOpen(false) }}>{title}</NavLink>
+                    ))}
+                    <NavLink to='/login' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500"
+                      onClick={() => {
+                        clearLocalStorage('userLogin');
+                        clearLocalStorage('accessToken');
+                        setCheck(false)
+                        setCount(0)
+                        setIsOpen(false)
+                      }}>LogOut</NavLink>
+                  </>
                 </nav>
               </div>
             </div>

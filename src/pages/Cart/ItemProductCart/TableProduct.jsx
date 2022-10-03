@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { clearLocalStorage } from '../../../util/config'
 import ItemProduct from './ItemTable'
 
 export default function TableProduct() {
@@ -30,9 +31,10 @@ export default function TableProduct() {
                 <div className='py-2  text-center basis-2/12'>Action</div>
             </div>
             <div className='overflow-auto' style={{ height: '195px' }}>
-                {arrProductsOrder?.map((product) => {
-                    return <ItemProduct key={product.size} product={product} />
-                })}
+                {arrProductsOrder.length === 0 ? clearLocalStorage('arrProductsOrder') :
+                    arrProductsOrder?.map((product) => {
+                        return <ItemProduct key={product.size} product={product} />
+                    })}
             </div>
         </>
     )

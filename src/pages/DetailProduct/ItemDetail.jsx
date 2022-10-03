@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { pushProductOrders } from '../../redux/reducer/productReducer';
 import { truncateString } from '../../util/templates';
+//toast
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { notify } from '../../componets/Toast/Toast';
+
 
 export default function ItemDetail({ product }) {
     const dispatch = useDispatch();
     const [size, setSize] = useState(0);
     const [quantity, setQuantity] = useState(1);
-    
+
 
     const handleQuantity = (number) => {
         setQuantity(quantity + number);
@@ -18,7 +23,7 @@ export default function ItemDetail({ product }) {
 
     const addToCart = () => {
         if (size == 0) {
-            alert('hay chon size')
+            notify('Hãy chọn size cho giày', 'error')
         } else {
             let productAddToCart = {
                 id: product.id,
@@ -31,9 +36,10 @@ export default function ItemDetail({ product }) {
             }
             const action = pushProductOrders(productAddToCart);
             dispatch(action);
+            notify('Thêm thành công', 'success')
         }
     }
-   
+
 
     return (
         <>
@@ -51,7 +57,7 @@ export default function ItemDetail({ product }) {
                                 return <div className={item === size ? 'w-12 h-12 bg-red-600 text-white relative' : 'w-12 h-12 bg-slate-200 relative hover:shadow-red-500 hover:shadow-lg'} key={index}>
                                     <button className="absolute font-semibold text-2xl "
                                         style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
-                                        onClick={() => {setSize(item)} }>
+                                        onClick={() => { setSize(item) }}>
                                         {item}
                                     </button>
                                 </div>
@@ -78,6 +84,7 @@ export default function ItemDetail({ product }) {
                     </div>
                 </div>
             </div>
+            <ToastContainer autoClose={1000} />
         </>
     )
 }

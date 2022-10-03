@@ -3,13 +3,22 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import urlImgLogo from '../../assets/img/logo.png'
 import { history } from '../../main';
-import { clearLocalStorage } from '../../util/config';
+import { clearLocalStorage, setStoreJSON } from '../../util/config';
 
 export default function subHeader() {
     const [count, setCount] = useState(0);
     const { userLogin } = useSelector(state => state.userReducer);
     const { arrProductsOrder } = useSelector(state => state.productReducer);
     const [check, setCheck] = useState(false);
+
+    const handleSaveLocalStorage = () => {
+        // if (getStoreJSON('arrProductsOrder') !== null) {
+        //     console.log(arrProductsOrder);
+        //     clearLocalStorage('arrProductsOrder');
+        // }
+        setStoreJSON('arrProductsOrder', arrProductsOrder)
+        console.log('a');
+    }
 
     useEffect(() => {
         if (userLogin === null) { history.push('/login') } else { setCheck(true) }
@@ -39,7 +48,9 @@ export default function subHeader() {
                         </path>
                     </svg>
                     search</NavLink>
-                <NavLink to='/cart' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500 flex justify-items-center">
+                <NavLink to='/cart' className="rounded-lg px-3 test py-2 font-medium hover:text-slate-500 flex justify-items-center"
+                    onClick={() => { handleSaveLocalStorage() }}
+                >
                     <svg
                         class="w-6 h-6"
                         fill="none"
@@ -62,6 +73,7 @@ export default function subHeader() {
                             onClick={() => {
                                 clearLocalStorage('userLogin');
                                 clearLocalStorage('accessToken');
+                                clearLocalStorage('arrProductsOrder')
                                 setCheck(false)
                                 setCount(0)
                             }}>Log out</NavLink>

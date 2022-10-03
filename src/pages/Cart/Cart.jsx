@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react'
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Responsive from '../../templates/Responsive';
-import { http } from '../../util/config';
+import { clearLocalStorage, http } from '../../util/config';
 import CartMobile from './ItemProCartMobile/CartMobile';
 import TableProduct from './ItemProductCart/tableProduct';
+
+//tost
+import { notify } from '../../componets/Toast/Toast';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function Cart() {
   const navigate = useNavigate()
@@ -17,8 +22,8 @@ export default function Cart() {
       let arrProductsOrderFilter = arrProductsOrder.filter((item) => item !== null)
       if (arrProductsOrderFilter.length > 0) {
         if (userLogin === null) {
-          alert('hay dang nhap')
-          navigate('/login')
+          notify('Hãy Đăng Nhập', 'error')
+          setTimeout(() => { navigate('/login') }, 1500);
         } else {
           let orderProducts = arrProductsOrderFilter?.reduce((order, product) => {
             order.push({
@@ -31,10 +36,12 @@ export default function Cart() {
             "orderDetail": orderProducts,
             "email": userLogin.email
           }
-          await http.post('/Users/order', dataOrder);
+          let result = await http.post('/Users/order', dataOrder);
+          // console.log(result);
+          notify(result.data.content, 'success')
         }
       } else {
-        navigate('/login')
+        notify('hãy chọn mua sản phẩm cho bạn', 'error')
       }
     }
     catch (err) {
@@ -51,13 +58,14 @@ export default function Cart() {
           <Responsive component={TableProduct} componentMobile={CartMobile} />
           <div className="flex justify-end mb-11 mt-4 ">
             <button className="font-semibold text-2xl text-white bg-orange-500 rounded-2xl hover:shadow-lg hover:shadow-orange-700/50 py-1 px-4"
-              onClick={() => { orderProducts() }}
+              onClick={() => { orderProducts(), clearLocalStorage('arrProductsOrder') }}
             >
               SUBMIT ORDER
             </button>
           </div>
         </div>
       </div>
+      <ToastContainer  />
     </>
   )
 }
