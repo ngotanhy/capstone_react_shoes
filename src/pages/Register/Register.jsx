@@ -36,7 +36,8 @@ export default function Register() {
       }
 
       let result = await http.post('/Users/signup', userRegister);
-      result.data.statusCode === 200 ? notify(result.data.message, 'success'):notify('Hãy Đăng Kí lại', 'error')
+      if (result.data.statusCode === 200) notify(result.data.message, 'success')
+      else notify('Hãy Đăng Kí lại', 'error')
     }
   });
 

@@ -97,6 +97,7 @@ http.interceptors.response.use((response) => {
     console.log(err.response.status);
     if (err.response.status === 400 || err.response.status === 404) {
         // history.push('/');
+        alert('bad request')
         return Promise.reject(err);
     }
     if (err.response.status === 401 || err.response.status === 403) {
